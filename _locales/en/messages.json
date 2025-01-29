@@ -1,0 +1,6 @@
+{
+  "menuItemSelectionLogger": {
+    "message": "Domain Search",
+    "description": "Title of context menu item that logs the selected text when clicked."
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      width: 300px;
+      height: 200px;
+      font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+    select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px; /* Optional: Add rounded corners */
+            appearance: none;
+    }
+    button {
+      width: 100%;
+      padding: 8px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <p id="selected-text">Loading...</p>
+  <h3>Enter a domain to search:</h3>
+  <input type="text" id="domain" placeholder="e.g. example.com">
+  <select id="dns-select" name="dns-root">
+    <option value="Select..."></option>
+    <option value=".com">.com</option>
+    <option value=".net">.net</option>
+    <option value=".org">.org</option>
+    <option value=".edu">.edu</option>
+    <option value=".gov">.gov</option>
+    <option value=".mil">.mil</option>
+    <option value=".io">.io</option>
+    <option value=".info">.info</option>
+    <option value=".biz">.biz</option>
+    <option value=".pro">.pro</option>
+  </select>
+  <button id="search-btn">Search</button>
+  <script src="script.js"></script>
+</body>
+</html>
