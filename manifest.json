@@ -23,6 +23,11 @@
       ]
     }
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "brintoul@controlledthinking.com"
+    }
+  },
   "action": {
     "default_icon": {
       "64": "icons/icon.png"
