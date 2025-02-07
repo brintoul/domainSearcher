@@ -40,7 +40,7 @@ browser.menus.onClicked.addListener((info, tab) => {
       const url = new URL(tab.url);
       const domain = url.hostname;
       browser.storage.local.set({ selectedText: info.selectionText });
-      browser.browserAction.openPopup();
+      browser.action.openPopup();
       browser.search.get().then((engines) => {
         engines.forEach((engine) => {
           console.log(`Name: ${engine.name}, Is Default: ${engine.isDefault}`);
