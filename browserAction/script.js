@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   browser.storage.onChanged.addListener((changes, areaName) => {
       if (areaName === "local" && changes.storedDomains) {
           suggestions = changes.storedDomains.newValue || [];
-          console.log("Updated suggestions:", suggestions);
       }
     }
   );
