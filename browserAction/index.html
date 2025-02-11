@@ -27,6 +27,21 @@
       border: none;
       cursor: pointer;
     }
+    #autocomplete-list {
+        position: absolute;
+        border: 1px solid #ccc;
+        max-height: 150px;
+        overflow-y: auto;
+        background: white;
+    }
+    .autocomplete-item {
+        padding: 5px;
+        cursor: pointer;
+    }
+    .autocomplete-item:hover ,
+    .autocomplete-item.highlighted {
+        background-color: lightblue;
+    }
   </style>
 </head>
 <body>
