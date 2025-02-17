@@ -118,10 +118,16 @@ document.addEventListener("DOMContentLoaded", async function () {
   browser.storage.onChanged.addListener((changes, areaName) => {
       if (areaName === "local" && changes.storedDomains) {
           suggestions = changes.storedDomains.newValue || [];
-          console.log("Updated suggestions:", suggestions);
       }
     }
   );
+
+  //for some reason doing this with a bit of delay is the only way
+  //to get the focus into the search textbox.
+  setTimeout(() => {
+    document.getElementById("search").focus();
+  }, 100);
+
 });
 
 let selectedRoot = '';
