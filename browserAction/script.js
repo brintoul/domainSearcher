@@ -18,6 +18,27 @@ const storeDomain = (domain) => {
 
 }
 
+const performSearch = () => {
+    // Get the user-entered domain
+    let domain = document.getElementById("search").value;
+
+    if (selectedRoot !== '')
+      domain = selectedRoot;
+    else if(!domain)
+      return
+
+    const selectedText = document.getElementById("selected-text").textContent.trim();
+    if (selectedText) {
+      // Construct the query: selected text + site:<user-entered domain>
+      const query = `${selectedText} site:${domain}`;
+      storeDomain(domain);
+      // Perform the search using the default search engine
+      browser.search.search({ query });
+    }
+    // Close the popup after search
+    window.close();
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
 
   const domainBoxText = document.getElementById("search");
@@ -35,10 +56,11 @@ document.addEventListener("DOMContentLoaded", async function () {
   await loadSuggestions();
 
   let currentIndex = -1;
+  let selectionMade = false;
 
   domainBoxText.addEventListener("keydown", (e) => {
     const items = list.getElementsByTagName("li");
-    if (!items.length) return;
+    //if (!items.length) return;
 
     if (e.key === "ArrowDown") {
         e.preventDefault();
@@ -46,11 +68,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else if (e.key === "ArrowUp") {
         e.preventDefault();
         if (currentIndex > 0) currentIndex--;
-    } else if (e.key === "Enter" && currentIndex > -1) {
+    } else if (e.key === "Enter") {
         e.preventDefault();
-        domainBoxText.value = items[currentIndex].textContent;
-        list.innerHTML = ""; // Close dropdown
-        currentIndex = -1;
+        if(currentIndex > -1) {
+          console.log("The current index is greater than -1");
+          domainBoxText.value = items[currentIndex].textContent;
+          list.innerHTML = ""; // Close dropdown
+          currentIndex = -1;
+          selectionMade = true;
+        } else if(selectionMade) {
+          performSearch();
+        } else {
+          performSearch();
+        }
         return;
     }
 
@@ -97,21 +127,5 @@ document.addEventListener("DOMContentLoaded", async function () {
 let selectedRoot = '';
 
 document.getElementById("search-btn").addEventListener("click", () => {
-  // Get the user-entered domain
-  let domain = document.getElementById("search").value;
-
-  if (selectedRoot !== '')
-    domain = selectedRoot;
-  else if(!domain)
-    return
-  const selectedText = document.getElementById("selected-text").textContent.trim();
-  if (selectedText) {
-    // Construct the query: selected text + site:<user-entered domain>
-    const query = `${selectedText} site:${domain}`;
-    storeDomain(domain);
-    // Perform the search using the default search engine
-    browser.search.search({ query });
-  }
-  // Close the popup after search
-  window.close();
+  performSearch();
 });
