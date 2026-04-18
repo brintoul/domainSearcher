@@ -1,3 +1,115 @@
-h1 {
-  font-style: italic;
+*, *::before, *::after {
+  box-sizing: border-box;
 }
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 1.2em;
+  margin-bottom: 16px;
+}
+
+h2 {
+  font-size: 1em;
+  margin-bottom: 8px;
+}
+
+.hint {
+  font-size: 0.8em;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.hint code {
+  background: #f0f0f0;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+#domain-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#domain-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+}
+
+#domain-list li[hidden] {
+  display: none;
+}
+
+#domain-list li.group-header {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  font-size: 0.85em;
+  color: #555;
+  padding: 7px 10px;
+  cursor: pointer;
+  user-select: none;
+  gap: 6px;
+}
+
+#domain-list li.group-header:hover {
+  background-color: #e8e8e8;
+}
+
+#domain-list li.group-header .toggle-icon {
+  font-size: 0.75em;
+}
+
+#domain-list li.domain-row.group-member span {
+  padding-left: 12px;
+}
+
+#domain-list li.remove-all-row {
+  justify-content: flex-end;
+  background-color: #fdf0f0;
+}
+
+#domain-list li.remove-all-row button {
+  background-color: #c33;
+}
+
+#domain-list li:last-child {
+  border-bottom: none;
+}
+
+#domain-list li span {
+  font-size: 0.9em;
+}
+
+#domain-list li button {
+  padding: 3px 10px;
+  font-size: 0.8em;
+  background-color: #e55;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: auto;
+}
+
+#domain-list li button:hover {
+  background-color: #c33;
+}
+
+#empty-state {
+  font-size: 0.85em;
+  color: #999;
+  margin-bottom: 12px;
+}
+

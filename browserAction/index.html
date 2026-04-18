@@ -2,22 +2,30 @@
 <html>
 <head>
   <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
     body {
       width: 300px;
-      height: 200px;
       font-family: Arial, sans-serif;
-      padding: 10px;
+      padding: 12px;
+      margin: 0;
+    }
+    .field {
+      margin-bottom: 12px;
+      position: relative;
+    }
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.85em;
+      font-weight: bold;
     }
     input[type="text"] {
       width: 100%;
       padding: 8px;
-      margin-bottom: 10px;
-    }
-    select {
-            width: 100%;
-            padding: 8px;
-            border-radius: 4px; /* Optional: Add rounded corners */
-            appearance: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
     button {
       width: 100%;
@@ -25,30 +33,42 @@
       background-color: #4CAF50;
       color: white;
       border: none;
+      border-radius: 4px;
       cursor: pointer;
     }
     #autocomplete-list {
-        position: absolute;
-        border: 1px solid #ccc;
-        max-height: 150px;
-        overflow-y: auto;
-        background: white;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      border: 1px solid #ccc;
+      border-top: none;
+      max-height: 150px;
+      overflow-y: auto;
+      background: white;
+      z-index: 10;
     }
     .autocomplete-item {
-        padding: 5px;
-        cursor: pointer;
+      padding: 6px 8px;
+      cursor: pointer;
+      list-style: none;
     }
-    .autocomplete-item:hover ,
+    .autocomplete-item:hover,
     .autocomplete-item.highlighted {
-        background-color: lightblue;
+      background-color: lightblue;
     }
   </style>
 </head>
 <body>
-  <p id="selected-text">Loading...</p>
-  <h3>Enter a domain to search:</h3>
-  <input type="text" id="search" placeholder="Start typing...">
-  <div id="autocomplete-list"></div>
+  <div class="field">
+    <label for="search-term">Search for:</label>
+    <input type="text" id="search-term" placeholder="Enter search terms...">
+  </div>
+  <div class="field">
+    <label for="search">Domain to search:</label>
+    <input type="text" id="search" placeholder="Start typing...">
+    <div id="autocomplete-list"></div>
+  </div>
   <button id="search-btn">Search</button>
   <script src="script.js"></script>
 </body>

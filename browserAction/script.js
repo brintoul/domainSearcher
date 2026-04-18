@@ -1,9 +1,3 @@
-browser.storage.local.get("selectedText", (result) => {
-  // Check if the selectedText exists in storage
-  const selectedText = result.selectedText || "No text selected.";
-  // Display the selected text in the popup
-  document.getElementById("selected-text").textContent = selectedText;
-});
 
 const storeDomain = (domain) => {
 
@@ -27,10 +21,10 @@ const performSearch = () => {
     else if(!domain)
       return
 
-    const selectedText = document.getElementById("selected-text").textContent.trim();
-    if (selectedText) {
-      // Construct the query: selected text + site:<user-entered domain>
-      const query = `${selectedText} site:${domain}`;
+    const searchTerm = document.getElementById("search-term").value.trim();
+    if (searchTerm) {
+      // Construct the query: search term + site:<user-entered domain>
+      const query = `${searchTerm} site:${domain}`;
       storeDomain(domain);
       // Perform the search using the default search engine
       browser.search.search({ query });
@@ -44,16 +38,25 @@ document.addEventListener("DOMContentLoaded", async function () {
   const domainBoxText = document.getElementById("search");
   const list = document.getElementById("autocomplete-list");
 
-  let suggestions = []; // Will be populated from storage
+  const defaultDomains = [".com", ".org", ".edu", ".net", ".gov", ".io"];
+  let suggestions = [];
 
-  // Load suggestions from storage
+  // Load suggestions from storage, always including defaults
   async function loadSuggestions() {
       const result = await browser.storage.local.get("storedDomains");
-      suggestions = result.storedDomains || []; // Default to empty array if not found
+      const stored = result.storedDomains || [];
+      suggestions = [...new Set([...defaultDomains, ...stored])];
   }
 
   // Run initial load
   await loadSuggestions();
+
+  // Pre-populate search term if launched from context menu
+  const storageResult = await browser.storage.local.get(["selectedText", "launchSource"]);
+  if (storageResult.launchSource === "contextMenu" && storageResult.selectedText) {
+    document.getElementById("search-term").value = storageResult.selectedText;
+    browser.storage.local.remove("launchSource");
+  }
 
   let currentIndex = -1;
   let selectionMade = false;
@@ -125,7 +128,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   //for some reason doing this with a bit of delay is the only way
   //to get the focus into the search textbox.
   setTimeout(() => {
-    document.getElementById("search").focus();
+    const searchTerm = document.getElementById("search-term");
+    if (searchTerm.value) {
+      document.getElementById("search").focus();
+    } else {
+      searchTerm.focus();
+    }
   }, 100);
 
 });

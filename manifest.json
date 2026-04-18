@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "domainSearcher",
-  "description": "Limits searches to domains",
+  "name": "Domain Searcher",
+  "description": "Right-click selected text to search within a specific domain using Google's site: syntax. Choose the current site's domain instantly, or pick any domain from your saved list.",
   "default_locale": "en",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "icons": {
-    "64": "icons/icon.png"
+    "64": "icons/icon.svg"
   },
   "background": {
     "scripts": [
@@ -13,16 +13,6 @@
     ]
   },
   "permissions": ["menus", "activeTab", "search", "storage"],
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*.mozilla.org/*"
-      ],
-      "js": [
-        "content_script.js"
-      ]
-    }
-  ],
   "browser_specific_settings": {
     "gecko": {
       "id": "brintoul@controlledthinking.com"
@@ -30,16 +20,9 @@
   },
   "action": {
     "default_icon": {
-      "64": "icons/icon.png"
+      "64": "icons/icon.svg"
     },
     "default_popup": "browserAction/index.html",
-    "default_title": "domainSearcher"
-  },
-  "page_action": {
-    "default_icon": {
-      "64": "icons/icon.png"
-    },
-    "default_popup": "pageAction/index.html",
     "default_title": "domainSearcher"
   },
   "options_ui": {

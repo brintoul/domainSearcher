@@ -1,3 +1,15 @@
+const defaultDomains = [".com", ".org", ".edu", ".net", ".gov", ".io"];
+
+browser.runtime.onInstalled.addListener((details) => {
+  console.log("Extension installed!", details);
+  browser.storage.local.get("storedDomains").then((result) => {
+    if (!result.storedDomains || result.storedDomains.length === 0) {
+      browser.storage.local.set({ storedDomains: defaultDomains });
+      console.log("Seeded default domains.");
+    }
+  });
+});
+
 // Put all the javascript code here, that you want to execute in background.
 function onCreated() {
   if (browser.runtime.lastError) {
@@ -10,7 +22,7 @@ function onCreated() {
 function getSubdomain(domain) {
   let parts = domain.split('.');
   if (parts.length > 2) {
-      return parts.slice(-2).join('.');
+      return parts.slice(-3).join('.');
   }
   return domain;
 }
@@ -41,13 +53,27 @@ browser.menus.onClicked.addListener((info, tab) => {
   if(info.menuItemId === "choosedomain") {
       const url = new URL(tab.url);
       const domain = url.hostname;
-      browser.storage.local.set({ selectedText: info.selectionText });
+      browser.storage.local.set({ selectedText: info.selectionText, launchSource: "contextMenu" });
       browser.action.openPopup();
   } else if(info.menuItemId === "thisdomain") {
     const url = new URL(tab.url);
-    const domain = url.hostname;
-    // Construct the query: selected text + site:<user-entered domain>
-    const query = `${info.selectionText} site:${getSubdomain(domain)}`;
+    const storeDomain = getSubdomain(url.hostname);
+    const parts = url.hostname.split('.');
+    const searchDomain = parts.length > 2 ? parts.slice(-2).join('.') : url.hostname;
+    // Save both the subdomain and root domain for autocomplete
+    browser.storage.local.get("storedDomains").then((result) => {
+      const storedDomains = result.storedDomains || [];
+      let changed = false;
+      for (const d of [storeDomain, searchDomain]) {
+        if (!storedDomains.includes(d)) {
+          storedDomains.push(d);
+          changed = true;
+        }
+      }
+      if (changed) browser.storage.local.set({ storedDomains });
+    });
+    // Construct the query: selected text + site:<root domain>
+    const query = `${info.selectionText} site:${searchDomain}`;
     // Perform the search using the default search engine
     browser.search.search({ query });
   }

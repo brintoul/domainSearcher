@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link href="style.css" rel="stylesheet" />
-  </head>
-  <body>
-    <h1 id="myHeading">My content</h1>
-    <script src="script.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Domain Searcher — Preferences</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <h1>Domain Searcher Preferences</h1>
+
+  <section>
+    <h2>Stored Domains</h2>
+    <p class="hint">Tip: to search across a top-level domain, start with a dot — e.g. <code>.edu</code> or <code>.org</code></p>
+    <ul id="domain-list"></ul>
+    <p id="empty-state" hidden>No domains saved yet.</p>
+  </section>
+
+  <script src="script.js"></script>
+</body>
 </html>

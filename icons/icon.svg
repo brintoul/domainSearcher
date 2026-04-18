@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <radialGradient id="lensGrad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#c8eac8"/>
+    </radialGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6dcc6d"/>
+      <stop offset="100%" stop-color="#2a7a2a"/>
+    </linearGradient>
+    <linearGradient id="handleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6dcc6d"/>
+      <stop offset="100%" stop-color="#1e5e1e"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-color="#00000055"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <!-- Lens -->
+    <circle cx="50" cy="50" r="38" fill="url(#lensGrad)" stroke="url(#ringGrad)" stroke-width="12"/>
+    <!-- Handle -->
+    <line x1="79" y1="79" x2="114" y2="114" stroke="url(#handleGrad)" stroke-width="14" stroke-linecap="round"/>
+  </g>
+
+  <!-- Glass shine highlight -->
+  <ellipse cx="37" cy="35" rx="13" ry="8" fill="white" opacity="0.55" transform="rotate(-35 37 35)"/>
+
+  <!-- DS text shadow -->
+  <text x="51" y="63" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="30" fill="#1a5c1a" opacity="0.35">DS</text>
+  <!-- DS text -->
+  <text x="50" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="30" fill="#2a7a2a">DS</text>
+</svg>
